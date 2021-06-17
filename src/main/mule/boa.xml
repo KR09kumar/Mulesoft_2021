@@ -14,11 +14,12 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<ee:transform doc:name="Transform Message" doc:id="8ca6f06c-29b8-43a0-99b4-40354d342769" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
-output application/java
+output application/json
 ---
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="50cfa014-889b-499d-90fe-43a18f067747" message="#[payload]"/>
+		<flow-ref doc:name="Flow Reference" doc:id="872eda39-6a6e-4f03-96c8-cbf25b2fb54c" name="boa2Flow"/>
 	</flow>
 </mule>
