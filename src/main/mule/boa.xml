@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="f097b205-e9fd-4bc7-9ff6-f3beac4e44b6" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="boaFlow" doc:id="05c7372f-4a00-4b10-a19b-bad7b2183698" >
+		<http:listener doc:name="Listener" doc:id="8c4a3be8-c3f9-484f-836e-ebef39a16f16" config-ref="HTTP_Listener_config" path="/Account"/>
+		<logger level="INFO" doc:name="Logger" doc:id="28402c42-b8d7-453b-a7eb-e538212fa568" message='"this is the starting of the flow"'/>
+		<ee:transform doc:name="Transform Message" doc:id="8ca6f06c-29b8-43a0-99b4-40354d342769" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="50cfa014-889b-499d-90fe-43a18f067747" message="#[payload]"/>
+	</flow>
+</mule>
